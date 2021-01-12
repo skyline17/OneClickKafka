@@ -1,0 +1,93 @@
+﻿<Window x:Class="OneClickKafka.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OneClickKafka"
+        mc:Ignorable="d"
+        Name="AppWindow"
+        Title="One Click Kafka" MinHeight="550" MinWidth="400" Width="400" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible" Background="LightYellow">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid Name="ConfigPanel" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Visibility="Collapsed">
+            <Rectangle Margin="10" Focusable="False" Stroke="Gray" Fill="LightGray" RadiusX="10" RadiusY="10" StrokeThickness="3"/>
+            <StackPanel Orientation="Vertical" MaxWidth="300">
+                <Label Content="Configs:" FontSize="40" FontWeight="Bold" Foreground="Gray" Margin="10"/>
+                <TextBox Name="zkserver_Cmd" HorizontalAlignment="Stretch" Margin="20" TextWrapping="Wrap" VerticalAlignment="Top" Background="SandyBrown" Foreground="LightYellow" FontWeight="Bold" TextChanged="SaveConfigEvent"/>
+                <StackPanel Margin="20">
+                    <TextBox Name="kafkaserver_folder" HorizontalAlignment="Stretch" TextWrapping="Wrap" Background="DimGray" Foreground="LightYellow" FontWeight="Bold" TextChanged="SaveConfigEvent"/>
+                    <TextBox Name="startkafkaserver_cmd" HorizontalAlignment="Stretch" TextWrapping="Wrap" Background="SandyBrown" Foreground="LightYellow" FontWeight="Bold"  TextChanged="SaveConfigEvent"/>
+                </StackPanel>
+                <StackPanel Margin="20">
+                    <TextBox Name="topic_Folder" HorizontalAlignment="Stretch" TextWrapping="Wrap" Background="DimGray" Foreground="LightYellow" FontWeight="Bold"  TextChanged="SaveConfigEvent"/>
+                    <TextBox Name="topicList_cmd" HorizontalAlignment="Stretch" TextWrapping="Wrap" Background="SandyBrown" Foreground="LightYellow" FontWeight="Bold"  TextChanged="SaveConfigEvent"/>
+                    <TextBox Name="topicCreate_cmd" HorizontalAlignment="Stretch" TextWrapping="Wrap" Background="SandyBrown" Foreground="LightYellow" FontWeight="Bold"  TextChanged="SaveConfigEvent"/>
+                    <TextBox Name="topicDelete_cmd" TextWrapping="Wrap" Background="SandyBrown" Foreground="LightYellow" FontWeight="Bold"  TextChanged="SaveConfigEvent"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel  Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Margin="10">
+            <Button ToolTip="Edit Config" Name="ShowConfig" Height="63" VerticalAlignment="Top" Margin="10,0" Click="ShowConfig_Click" Background="LightYellow" BorderBrush="LightYellow">
+                <Image Source=".\Iconka-Cat-Commerce-Announce.ico"/>
+            </Button>
+            <Button ToolTip="Clear Logs" Name="ClearLogs" Height="63" VerticalAlignment="Top" Margin="10,0" Background="LightYellow" BorderBrush="LightYellow" Click="ClearLogs_Click">
+                <Image Source=".\Iconka-Cat-Commerce-Trash.ico"/>
+            </Button>
+            <Button ToolTip="Start ZooKeeper" Name="StartZooKeeper" HorizontalAlignment="Left" Margin="10,0" VerticalAlignment="Top" Click="StartZooKeeper_Click" Background="LightYellow" BorderBrush="LightYellow" >
+                <Button.Content >
+                    <Grid>
+                        <Rectangle Fill="SandyBrown" Stroke="LightYellow" Height="63" Width="63" RadiusX="10" RadiusY="10"/>
+                        <TextBlock Text="Zoo Keeper" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Foreground="LightYellow" FontSize="17" FontWeight="Bold" Width="63"/>
+                    </Grid>
+                </Button.Content>
+            </Button>
+            <Button ToolTip="Start Kafka" Name="StartKafka" HorizontalAlignment="Left" Margin="10,0" VerticalAlignment="Top" Click="StartKafka_Click" Background="LightYellow" BorderBrush="LightYellow" >
+                <Button.Content >
+                    <Grid>
+                        <Rectangle Fill="SandyBrown" Stroke="LightYellow" Height="63" Width="63" RadiusX="10" RadiusY="10"/>
+                        <TextBlock Text="Kafka" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Foreground="LightYellow" FontSize="18" FontWeight="Bold" Width="63" />
+                    </Grid>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+        <Grid Grid.Column="1" Grid.Row="3" Margin="10">
+            <Rectangle Margin="0" Focusable="False" Stroke="SandyBrown" Fill="LightYellow" RadiusX="10" RadiusY="10" StrokeThickness="3"/>
+            <StackPanel Orientation="Vertical" Margin="0">
+                <TextBlock TextWrapping="Wrap" Name="MsgBar" Background="Gainsboro" FontWeight="Bold" Visibility="Hidden" Foreground="SandyBrown" Margin="10" FontSize="18"/>
+                <Label Content="Topics:" FontSize="40" FontWeight="Bold" Foreground="SandyBrown" Margin="10"/>
+                <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+                    <Button ToolTip="List All Topics" Name="ListAllTopics" HorizontalAlignment="Center" Height="63" Margin="10" VerticalAlignment="Top" Click="ListAllTopics_Click" Background="LightYellow" BorderBrush="LightYellow">
+                        <Image Source=".\Iconka-Cat-Commerce-Search.ico"/>
+                    </Button>
+                    <Button ToolTip="Create Topic" Name="CreateTopic" Width="63" Height="63" VerticalAlignment="Center" Click="CreateTopic_Click" Background="LightYellow" BorderBrush="LightYellow">
+                        <Button.Content>
+                            <Polygon Width="60" Height="60" Points="5,25 25,25 25,5 35,5 35,25 55,25 55,35 35,35 35,55 25,55 25,35 5,35" Fill="SandyBrown" VerticalAlignment="Center"></Polygon>
+                        </Button.Content>
+                    </Button>
+                    <Button ToolTip="Delete Topic" Name="DeleteTopic"  Width="53" Height="63" VerticalAlignment="Center" Click="DeleteTopic_Click" Background="LightYellow" BorderBrush="LightYellow">
+                        <Button.Content>
+                            <Polygon Height="60" Points="5,25 45,25 45,35 5,35" Fill="SandyBrown" VerticalAlignment="Center"></Polygon>
+                        </Button.Content>
+                    </Button>
+                    <Grid>
+                        <Rectangle Fill="White" Stroke="SandyBrown" StrokeThickness="3" Height="45" Margin="5" Width="auto" RadiusX="10" RadiusY="10"/>
+                        <TextBox x:Name="topicName" MinWidth="60" VerticalAlignment="Center" Foreground="SandyBrown" FontWeight="Bold" FontSize="18" Margin="10" BorderBrush="White"/>
+                    </Grid>
+
+                </StackPanel>
+                <Grid x:Name="currentTopicsGrid" Visibility="Collapsed">
+                    <Rectangle Fill="White" Stroke="LightYellow" StrokeThickness="3" Height="auto" Margin="5" Width="auto" RadiusX="10" RadiusY="10"/>
+                    <ListBox x:Name="currentTopics" HorizontalAlignment="Center" MinHeight="170" Margin="10" VerticalAlignment="Top" MinWidth="300" Foreground="SandyBrown" FontWeight="Bold" FontSize="18"  BorderBrush="White" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
